@@ -6,12 +6,12 @@ github.com/go-gl/gl v0.0.0-20211210172815-726fda9656d6 h1:zDw5v7qm4yH7N8C8uWd+8I
 github.com/go-gl/gl v0.0.0-20211210172815-726fda9656d6/go.mod h1:9YTyiznxEY1fVinfM7RvRcjRHbw2xLBJ3AAGIT0I4Nw=
 github.com/go-gl/glfw v0.0.0-20220320163800-277f93cfa958 h1:aQjQrLKagKRNl/GGy16WNwsiYAVs2Kfwvg5pq07O7Ns=
 github.com/go-gl/glfw v0.0.0-20220320163800-277f93cfa958/go.mod h1:vR7hzQXu2zJy9AVAgeJqvqgH9Q5CA+iKCZ2gyEVpxRU=
-github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0 h1:DACJavvAHhabrF08vX0COfcOBJRhZ8lUbR+ZWIs0Y5g=
-github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0/go.mod h1:E/TSTwGwJL78qG/PmXZO1EjYhfJinVAhrmmHX6Z8B9k=
 github.com/keithroger/imgge v0.3.0 h1:oH7UMgWsqqDMtqcX2nWnyvpAyImOtRAFW9NkfS9Tnmk=
 github.com/keithroger/imgge v0.3.0/go.mod h1:EJyBp1lwb1VVS0PetBhiFk2lk/UE4gvMGd8mcoMP0J8=
-github.com/keithroger/tplace v1.0.0 h1:GvMRxM1r6XAFwX8AQRh3n5XnBmb7vsgcYvesbVxsNUk=
-github.com/keithroger/tplace v1.0.0/go.mod h1:JZiENcdn5+4ji3GF/0aLp5Qub19iGsn82kt9ByZPFXI=
+github.com/keithroger/imgge v0.4.0 h1:CfvQNiZUYfbO3QVjpaweSxvyw6wB1f+WO5KNZ4k/qwQ=
+github.com/keithroger/imgge v0.4.0/go.mod h1:EJyBp1lwb1VVS0PetBhiFk2lk/UE4gvMGd8mcoMP0J8=
+github.com/keithroger/imgge v0.4.2 h1:sgWCGkQk1A1vXvSrD2c750o7nuhcJAndiu/ECoiqn0Q=
+github.com/keithroger/imgge v0.4.2/go.mod h1:EJyBp1lwb1VVS0PetBhiFk2lk/UE4gvMGd8mcoMP0J8=
 github.com/keithroger/txtplacer v0.0.0 h1:2zvQjiSgp3U00slhtvNXZKz4RB5LodiAHEejUJXNE5s=
 github.com/keithroger/txtplacer v0.0.0/go.mod h1:xqK1L32q57i9+tCrlO84Oerj01fwZ2d/5T2iib0hKOg=
 golang.org/x/image v0.0.0-20220321031419-a8550c1d254a h1:LnH9RNcpPv5Kzi15lXg42lYMPUf0x8CuPv1YnvBWZAg=

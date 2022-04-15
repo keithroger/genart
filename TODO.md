@@ -1,9 +1,7 @@
 # TODO
 
 ## General
-- Look for different graphics module
-    - Look for one with full screen option
-    - Simpler way to write to screen
+- Optimize algorithms for multithreading
 
 ## Blackhole
 - revise algorithm so that dots start circling faster as they get into

@@ -3,76 +3,85 @@ package main
 import (
     "fmt"
 	"image"
+	"image/color"
 	"image/draw"
 	"log"
-	"os"
-    "image/color"
-    "time"
+	"time"
+    "math/rand"
 
 	"github.com/faiface/gui/win"
 	"github.com/faiface/mainthread"
 
-	"github.com/keithroger/imgge/effects"
+	"github.com/keithroger/imgge"
 	"github.com/keithroger/txtplacer"
 )
 
 const (
-    screenW, screenH = 1080, 1920
-    // screenW, screenH = 800, 800
+	screenW, screenH = 1080, 1920
+	// screenW, screenH = 800, 800
+	maxEffectFrames  =  5
+    fontfile = "playfair.ttf"
+	poem             = "Twinkle, twinkle, little bat!\n" +
+		"How I wonder what you're at!\n" +
+		"Up above the world you fly,\n" +
+		"Like a tea-tray in the sky.\n" +
+		"Twinkle, twinkle, little bat!\n" +
+		"How I wonder what you're at!`"
 )
+
 func run() {
-    img := image.NewRGBA(image.Rect(0, 0, screenW, screenH))
+	img := image.NewRGBA(image.Rect(0, 0, screenW, screenH))
 
-    // effects
-    shift := effects.NewShift(img, 15, 5, 200)
-    cshift := effects.NewColorShift(img, 10, 10, 200)
-    pixelSort := effects.NewPixelSort(img, 40, 2000, "horiz")
-    pixelPop := effects.NewPixelPop(img, 3, 10, 500)
-
-    // Create txtplacer
-    placer, err := txtplacer.NewPlacer(img, "playfair.ttf", 48.0)
-    placer.SetColor(color.White)
-    if err != nil {
-        log.Fatalf("Font file failed to load: %v", err)
+	// Create effects
+    effects := []struct{
+        effect imgge.Effect
+        frames int
+    }{
+        {imgge.NewShift(img.Bounds(), 15, 2, 100), 0},
+        {imgge.NewColorShift(img.Bounds(), 10, 5, 100), 0},
+        {imgge.NewPixelSort(img.Bounds(), 40, 200, "horiz"), 0},
+        {imgge.NewPixelPop(img.Bounds(), 5, 10, 500), 0},
     }
 
-    // Read txt file
-    inFile, err := os.ReadFile("poem.txt")
-    if err != nil {
-        log.Fatalf("Failed to read poem file: %v", err)
-    }
+	// Create txtplacer
+	placer, err := txtplacer.NewPlacer(img, fontfile, 48.0)
+	placer.SetColor(color.White)
+	if err != nil {
+		log.Fatalf("Font file failed to load: %v", err)
+	}
 
-    w, err := win.New(win.Title("Bat"), win.Size(screenW, screenH))
-    if err != nil {
-        panic(err)
-    }
+	// Create window
+	w, err := win.New(win.Title("Bat"), win.Size(screenW, screenH))
+	if err != nil {
+		panic(err)
+	}
 
-    text := string(inFile)
-    fmt.Println(text)
+	go func() {
+		for i := 0; ; i++ {
+			draw.Draw(img, img.Bounds(), image.Black, image.Point{}, draw.Src)
+			placer.WriteAtCenter(poem, 1000, "left")
 
-    go func() {
-        for i := 0; ; i++{
-            draw.Draw(img, img.Bounds(), image.Black, image.Point{}, draw.Src)
-            placer.WriteAtCenter(text, 1000, "center")
 
-            // effects
-            // randomize effects after amout of time
-            shift.Apply(img)
-            cshift.Apply(img)
-            pixelSort.Apply(img)
-            pixelPop.Apply(img)
+            for i := range effects {
+                if effects[i].frames == 0 {
+                    effects[i].frames = rand.Intn(maxEffectFrames) + 1
+                    effects[i].effect.Randomize()
+                }
+                effects[i].frames--
 
-            w.Draw() <- func(drw draw.Image) image.Rectangle {
-                draw.Draw(drw, drw.Bounds(), img, image.Point{}, draw.Src)
-                return drw.Bounds()
+                effects[i].effect.Apply(img)
+
             }
 
-            if i > 1000 {
-                i = 0
-            }
-            time.Sleep(time.Second/100)
-        }
-    }()
+			w.Draw() <- func(drw draw.Image) image.Rectangle {
+				draw.Draw(drw, drw.Bounds(), img, image.Point{}, draw.Src)
+				return drw.Bounds()
+			}
+
+            fmt.Println("new frame")
+			time.Sleep(time.Second / 100)
+		}
+	}()
 
 	for event := range w.Events() {
 		switch event.(type) {
@@ -83,5 +92,5 @@ func run() {
 }
 
 func main() {
-    mainthread.Run(run)
+	mainthread.Run(run)
 }
