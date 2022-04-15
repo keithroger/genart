@@ -1,7 +1,6 @@
 package main
 
 import (
-    "fmt"
 	"image"
 	"image/color"
 	"image/draw"
@@ -78,7 +77,6 @@ func run() {
 				return drw.Bounds()
 			}
 
-            fmt.Println("new frame")
 			time.Sleep(time.Second / 100)
 		}
 	}()
